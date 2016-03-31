@@ -19,7 +19,56 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
-
+int compareDate(char *, char*);
 int countGreaterNumbers(struct transaction *Arr, int len, char *date) {
-	return -1;
+	int count = 0, low = 0, high = len - 1;
+	while (low <= high) {
+		int mid = (low + high) / 2;
+		int dateStatus = compareDate(Arr[mid].date, date);
+		if (dateStatus == 1) {
+			low = mid + 1;
+		}
+		else if (dateStatus == 0) {
+			count = len - 1 - mid;
+			low = mid + 1;
+		}
+		else {
+			high = mid - 1;
+		}
+	}
+	return count;
+}
+int compareDate(char *ArrDate, char* date) {
+	int i;
+	i = 6;
+	while (i < 10) {
+		if (date[i] < ArrDate[i]) {
+			return -1;
+		}
+		else if (ArrDate[i] < date[i]) {
+			return 1;
+		}
+		i++;
+	}
+	i = 3;
+	while (i < 5) {
+		if (date[i] < ArrDate[i]) {
+			return -1;
+		}
+		else if (ArrDate[i] < date[i]) {
+			return 1;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < 2) {
+		if (date[i] < ArrDate[i]) {
+			return -1;
+		}
+		else if (ArrDate[i] < date[i]) {
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
